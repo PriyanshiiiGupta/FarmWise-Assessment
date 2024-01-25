@@ -3,6 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { clearFields } from '../actions/fieldActions';
+import './DisplayFields.css'; // Import the CSS file
 
 const DisplayFields = ({ fields, dispatch }) => {
   const handleClearFields = () => {
@@ -10,22 +11,35 @@ const DisplayFields = ({ fields, dispatch }) => {
   };
 
   return (
-    <div>
+    <div className="display-fields-container">
       <h2>Display Fields</h2>
-      <ul>
-        {fields.map((field, index) => (
-          <li key={index}>
-            <strong>Field Type:</strong> {field.fieldType},{' '}
-            <strong>Display Name:</strong> {field.displayName},{' '}
-            <strong>Validation:</strong> {field.validation},{' '}
-            <strong>Data Type:</strong> {field.dataType},{' '}
-            {renderDataTypeField(field)}
-            <strong>Mandatory:</strong> {field.mandatory},{' '}
-            <strong>Field Data:</strong> {field.fieldData},{' '}
-          </li>
-        ))}
-      </ul>
-      <button onClick={handleClearFields}>Reset</button>
+      <table className="fields-table">
+        <thead>
+          <tr>
+            <th>Field Type</th>
+            <th>Display Name</th>
+            <th>Validation</th>
+            <th>Data Type</th>
+            <th>Additional Data</th>
+            <th>Mandatory</th>
+            <th>Field Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          {fields.map((field, index) => (
+            <tr key={index}>
+              <td>{field.fieldType}</td>
+              <td>{field.displayName}</td>
+              <td>{field.validation}</td>
+              <td>{field.dataType}</td>
+              <td>{renderDataTypeField(field)}</td>
+              <td>{field.mandatory}</td>
+              <td>{field.fieldData}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <button onClick={handleClearFields} className="reset-button">Reset</button>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 // components/FieldForm.js
 
 import React, { useState } from 'react';
+import './FieldForm.css';
 
 const FieldForm = ({ onSubmit }) => {
     const [field, setField] = useState({
@@ -55,7 +56,7 @@ const FieldForm = ({ onSubmit }) => {
             onSubmit(field);
             setFieldCount(fieldCount + 1);
         } else {
-            alert('Maximum limit reached (4 fields)');
+            window.alert('Maximum limit reached (4 fields)');
         }
         setField({
             fieldType: '',
@@ -71,10 +72,22 @@ const FieldForm = ({ onSubmit }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='field-form'>
+            <label>
+                Dynamic Data Collection:
+                <div className="dropdown-container">
+                    <select name="fieldType" value={field.fieldSelect} onChange={handleChange} required>
+                        <option value="">Select Type</option>
+                        <option value="Student">Student</option>
+                        <option value="Salaried">Salaried</option>
+                        <option value="Business">Business</option>
+                    </select>
+                </div>
+            </label>
+
             <label>
                 Field Type:
-                <select name="fieldType" value={field.fieldType} onChange={handleChange}>
+                <select name="fieldType" value={field.fieldType} onChange={handleChange} required>
                     <option value="">Select Type</option>
                     <option value="textbox">Text Box</option>
                     <option value="date">Date</option>
@@ -83,7 +96,7 @@ const FieldForm = ({ onSubmit }) => {
             </label>
             <label>
                 Field Display Name:
-                <input type="text" name="displayName" value={field.displayName} onChange={handleChange} />
+                <input type="text" name="displayName" value={field.displayName} onChange={handleChange} required />
             </label>
             <label>
                 Field Validation:
@@ -91,7 +104,7 @@ const FieldForm = ({ onSubmit }) => {
             </label>
             <label>
                 Field Data Type:
-                <select name="dataType" value={field.dataType} onChange={handleChange}>
+                <select name="dataType" value={field.dataType} onChange={handleChange} required>
                     <option value="string">String</option>
                     <option value="number">Number</option>
                     <option value="date">Date</option>
@@ -100,16 +113,16 @@ const FieldForm = ({ onSubmit }) => {
             {renderDataTypeField()}
             <label>
                 Mandatory:
-                <select name="mandatory" value={field.mandatory} onChange={handleChange}>
+                <select name="mandatory" value={field.mandatory} onChange={handleChange} required>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
             </label>
             <label>
                 Field Data:
-                <input type="text" name="fieldData" value={field.fieldData} o   nChange={handleChange} />
+                <input type="text" name="fieldData" value={field.fieldData} onChange={handleChange} required />
             </label>
-            <button type="submit" disabled={fieldCount>=4}>Add Field</button>
+            <button type="submit" disabled={fieldCount >= 4}>Confirm</button>
         </form>
     );
 };

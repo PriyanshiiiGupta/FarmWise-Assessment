@@ -1,80 +1,96 @@
-// components/DynamicDisplayScreen.js
-
 import React, { useState } from 'react';
+import './DynamicDataCollection.css'; // Import your CSS file for styling
+import { connect } from 'react-redux';
 
-const DynamicDisplayScreen = () => {
-    const [formData, setFormData] = useState({
-        department: '',
-        mobile: '',
-        dob: '',
-        pincode: '',
-    });
+function DynamicDataCollection({fields}) {
+  
+  const [department, setDepartment] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [pincode, setPincode] = useState('');
 
-    const [fieldDataList, setFieldDataList] = useState([]);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    window.alert('Submitted! ThankYou!');
+  };
 
+  const handlePincodeChange = (event) => {
+    const value = event.target.value;
+    if (/^\d{0,6}$/.test(value)) {
+      setPincode(value);
+    }
+  };
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+  return (
+    <form className="data-collection-form" onSubmit={handleSubmit}>
+      <h2>Dynamic Data Collection</h2>
+      <div className="form-group">
+        <label htmlFor="department">Department:</label>
+        <select
+          required
+          id="department"
+          name="department"
+          value={department}
+          onChange={(event) => setDepartment(event.target.value)}
+        >
+          <option value="">Select Department</option>
+          {fields.map((field, index) => (
+            <option key={index} value={field.fieldData}>
+              {field.fieldData}
+            </option>
+          ))}
+        </select>
+      </div>
 
-    const handleSubmit = () => {
-        // Perform actions with form data (submit logic)
-        console.log("Form Data:", formData);
-    };
+      <div className="form-group">
+        <label htmlFor="mobileNumber">Mobile Number:</label>
+        <select
+          required
+          type="number"
+          id="mobileNumber"
+          name="mobileNumber"
+          value={mobileNumber}
+          onChange={(event) => setMobileNumber(event.target.value)}
+        >
+          <option value="">Select Mobile Number</option>
+          {fields.map((field, index) => (
+            <option key={index} value={field.fieldData}>
+              {field.numberData}
+            </option>
+          ))}
+        </select>
+      </div>
 
-    
+      <div className="form-group">
+        <label htmlFor="dateOfBirth">Date of Birth:</label>
+        <input
+          required
+          type="date"
+          id="dateOfBirth"
+          name="dateOfBirth"
+          value={dateOfBirth}
+          onChange={(event) => setDateOfBirth(event.target.value)}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="pincode">Pin Code:</label>
+        <input
+          required
+          type="number"
+          maxLength={6}
+          id="pincode"
+          name="pincode"
+          value={pincode}
+          onChange={handlePincodeChange}
+        />
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
 
-    return (
-        <div>
-            <h2>Dynamic Display Screen</h2>
-            <form>
-                <label>
-                    Department:
-                    <input
-                        type="text"
-                        name="department"
-                        value={formData.department}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    Mobile:
-                    <input
-                        type="number"
-                        name="mobile"
-                        value={formData.mobile}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    DOB:
-                    <input
-                        type="date"
-                        name="dob"
-                        value={formData.dob}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    Pincode:
-                    <input
+const mapStateToProps = (state) => ({
+  fields: state.fields.fields,
+});
 
-                        type="number"
-                        name="pincode"
-                        value={formData.pincode}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <button type="button" onClick={handleSubmit}>
-                    Submit
-                </button>
-            </form>
-        </div>
-    );
-};
-
-export default DynamicDisplayScreen;
+export default connect(mapStateToProps)(DynamicDataCollection);

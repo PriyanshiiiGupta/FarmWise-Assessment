@@ -1,0 +1,49 @@
+.field-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 800px; /* Adjust max-width as needed */
+    margin: auto;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    flex-basis: calc(25% - 10px); /* 25% for four fields in one row, adjust as needed */
+    margin-bottom: 20px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+/* Center the Field Data input */
+.label-field-data {
+    display: flex;
+    align-items: center;
+}
+
+button {
+    flex-basis: calc(25% - 10px);
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}

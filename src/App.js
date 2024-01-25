@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import AddFields from './components/AddFields';
 import DisplayFields from './components/DisplayFields';
-import DynamicDisplayScreen from './components/DynamicDataCollection';
+import DynamicDataCollection from './components/DynamicDataCollection';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
       <div>
         <AddFields />
         <DisplayFields />
-        <DynamicDisplayScreen/>
+        <DynamicDataCollection/>
       </div>
     </Provider>
   ); 
